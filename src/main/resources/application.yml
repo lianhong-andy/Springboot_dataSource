@@ -1,0 +1,21 @@
+server:
+  port: 8088
+  servlet:
+    path: /
+#控制日志的级别  key：value （包名：日志级别）
+logging:
+  level:
+    com.andy: debug
+    #org.springframework: debug
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/woniutrip
+    username: root
+    password: root
+mybatis:
+#  configuration:
+#    map-underscore-to-camel-case: true
+#  引用了通用mapper之后会自动开启驼峰转换，不需要再自己配置
+  type-aliases-package: com.andy.model
+  #mapper-locations: mapper/*.xml
