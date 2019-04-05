@@ -33,5 +33,10 @@
         </tr>
     </table>
 </div>
+<div th:object="${modelAndView}">
+    <p>id:<span th:text="*{admin_id}"></span></p>
+    <p>Name:<span th:text="*{admin_name}"></span></p>
+    <p>password:<span th:text="*{passwd}"></span></p>
+</div>
 </body>
 </html>

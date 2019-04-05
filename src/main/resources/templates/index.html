@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<!--1.创建html 由上文也可以知道需要在HTML中添加：
+<html xmlns:th="http://www.thymeleaf.org">
+ 这样，下文才能正确使用th:*形式的标签-->
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -21,6 +24,7 @@
             <th>密码</th>
             <th>备注</th>
         </tr>
+        <!--获取变量值的表达式${...}，这点和ONGL表达式语法一致-->
         <tr th:each="user : ${list}">
             <td th:text="${user.admin_id}">1</td>
             <td th:text="${user.admin_name}">张三</td>
@@ -32,6 +36,49 @@
             <td th:text="${user.note}">xxxxx</td>
         </tr>
     </table>
+</div>
+<!--遍历集合获取变量：th:each = "var ： ${...}"
+其中：var为每个对象的，${}为获取集合-->
+<div th:each= "user : ${list}">
+    <div th:object="${user}">
+        <!--选择变量表达式*{...}-->
+        <p>
+            id:<span th:text="*{admin_id}">1</span>
+            Name:<span th:text="*{admin_name}">张三</span>
+            password:<span th:text="*{passwd}">123456</span>
+        </p>
+    </div>
+</div>
+<!--等价于-->
+<h5>等价于</h5>
+<hr>
+<div th:each="user : ${list}">
+    <p>
+        id: <span th:text="*{user.admin_id}">1</span>
+        Name:<span th:text="*{user.admin_name}">张三</span>
+        password:<span th:text="*{user.passwd}">123456</span>
+    </p>
+</div>
+<!--至于p里面的原有的值只是为了给前端开发时做展示用的.这样的话很好的做到了前后端分离。
+这也是Thymeleaf非常好的一个特性：在无网络的情况下也能运行，也就是完全可以前端先写出页面，
+模拟数据展现效果，后端人员再拿此模板修改即可！-->
+
+<div>
+    <!--连接表达式：@{...}，用来配合link src href使用的语法，类似的标签有:th:href和th:src-->
+    <a href="users.html" th:href="@{/user/get/1}"><span>点我啊1：</span></a>
+    <a href="users.html" th:href="@{/user/hello.do(name=${'张三'})}"><span>点我啊2：</span></a>
+    <!--等价于-->
+    <a href="/user/all"><span>点我啊2-1：</span></a>
+    <a href="/user/hello.do?name=李四"><span>点我啊2-2：</span></a>
+</div>
+
+<div>
+    <!--文本替换-->
+    <p>
+        <span th:text="'wellcome to our application,'+ ${admin.admin_name} + '!'">888</span>
+    </p>
+    <!--等价于-->
+    <span th:text="|wellcome to our application, ${admin2.admin_name}!|">999</span>
 </div>
 </body>
 </html>

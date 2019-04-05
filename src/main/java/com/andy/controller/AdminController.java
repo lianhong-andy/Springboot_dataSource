@@ -10,6 +10,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
@@ -23,12 +24,14 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
     @RequestMapping("/hello.do")
+    @ResponseBody
     public String hello(String name){
         log.debug("hello");
         return "hello "+name;
     }
 
     @GetMapping("get/{id}")
+    @ResponseBody
     public TourAdmin getUserById(@PathVariable(name = "id",required = false) Long id){
         return adminService.getUserById(id);
     }
@@ -56,7 +59,11 @@ public class AdminController {
     @GetMapping("/all2")
     public String users(ModelMap model){
         List<TourAdmin> list = adminService.queryAll();
+        TourAdmin admin = adminService.getUserById(8L);
+        TourAdmin admin2 = adminService.getUserById(9L);
         model.addAttribute("list",list);
+        model.addAttribute("admin",admin);
+        model.addAttribute("admin2",admin2);
         return "index";
     }
 
@@ -83,8 +90,8 @@ public class AdminController {
     @GetMapping("/modeAndView")
     public ModelAndView modelAndView(){
         Map<String,Object> map = new HashMap<>();
-        List<TourAdmin> list = adminService.queryAll();
-        map.put("modelAndView",list);
+        TourAdmin user = adminService.getUserById(1L);
+        map.put("modelAndView",user);
         return new ModelAndView("result",map);
     }
 }
