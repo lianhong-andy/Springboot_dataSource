@@ -13,6 +13,15 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/woniutrip
     username: root
     password: root
+
+  #thymeleaf start
+  thymeleaf:
+    cache: false #关闭缓存，不然没办法看到实时页面
+    mode: HTML5
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+  # thymeleaf end
 mybatis:
 #  configuration:
 #    map-underscore-to-camel-case: true
