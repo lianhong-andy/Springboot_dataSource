@@ -1,5 +1,5 @@
 server:
-  port: 8088
+  port: 8087
   servlet:
     path: /
 #控制日志的级别  key：value （包名：日志级别）
