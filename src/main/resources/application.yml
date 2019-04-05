@@ -17,7 +17,9 @@ spring:
   #thymeleaf start
   thymeleaf:
     cache: false #关闭缓存，不然没办法看到实时页面
-    mode: HTML5
+    #mode: HTML5
+    #实际项目中可能会有不太严格的html格式，此时设置的model=HTML5将会对非常严格的报错，可以参考一下配置
+    mode: LEGACYHTML5
     encoding: UTF-8
     servlet:
       content-type: text/html
