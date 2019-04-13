@@ -33,7 +33,15 @@
             <td th:text="${user.passwd}">123456</td>
             <!--<td th:text="${user.resource_codes} == 1 ? '男': '女'">男</td>-->
             <!--<td th:text="${#dates.format(user., 'yyyy-MM-dd')}">1980-02-30</td>-->
-            <td th:text="${user.note}">xxxxx</td>
+            <!--<td th:text="${user.note}"></td>-->
+            <td>
+                <!--switch的用法-->
+                <span th:switch="${user.admin_name}">
+                    <span th:case="'罗振考'">user is type A</span>
+                    <span th:case="'麦锦锐'">user is type B</span>
+                    <span th:case="*">user is other type</span>
+                </span>
+            </td>
         </tr>
     </table>
 </div>
@@ -78,7 +86,25 @@
         <span th:text="'wellcome to our application,'+ ${admin.admin_name} + '!'">888</span>
     </p>
     <!--等价于-->
-    <span th:text="|wellcome to our application, ${admin2.admin_name}!|">999</span>
+    <p>
+        <span th:text="|wellcome to our application, ${admin2.admin_name}!|">999</span>
+    </p>
+    <!--　　条件运算
+    If-then: (if) ? (then)
+    If-then-else: (if) ? (then) : (else)
+    Default: (value) ?: (defaultvalue)-->
+    <p>
+        <span th:text="'user is '+ (${admin2.admin_name == '罗振考'} ? ${admin2.admin_name} : (${admin.admin_name} ?:'Unkown'))"></span>
+    </p>
+    <p>
+        <span th:text="'user is '+ (${admin2.admin_name != '罗振考'} ? ${admin2.admin_name} : (${admin.admin_name} ?:'Unkown'))"></span>
+    </p>
+    <p>
+        <span th:text="'user is '+ (${admin2.admin_name != '罗振考'} ? ${admin2.admin_name} : (null ?:'Unkown'))"></span>
+    </p>
+    <!--　if/unless
+　　　使用th:if和th:unless属性进行条件判断，th:unless于th:if恰好相反，只有表达式中的条件不成立，才会显示其内容。-->
+        <!--<a th:href="@{/user/get/10}" th:unless="${admin2.admin_name=='罗振考'}>开放</a>-->
 </div>
 </body>
 </html>
